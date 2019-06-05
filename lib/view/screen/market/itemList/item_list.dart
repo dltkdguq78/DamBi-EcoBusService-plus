@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 
+
+
 class ItemListScreen extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => ItemListScreenState();
@@ -8,7 +10,7 @@ class ItemListScreen extends StatefulWidget {
 
 class ItemListScreenState extends State<ItemListScreen> {
   ScrollController scrollController;
-
+  bool firstWidget =true;
   @override
   void initState() {
     scrollController = ScrollController();
@@ -35,7 +37,11 @@ class ItemListScreenState extends State<ItemListScreen> {
         ),
         centerTitle: true,
       ),
-      body: buildItemBody(),
+
+      body:buildItemBody(),
+
+
+      //extendBody: firstWidget ? builduseinfo():buildubuyinfo(),
       backgroundColor: Colors.white,
     );
   }
@@ -49,9 +55,8 @@ class ItemListScreenState extends State<ItemListScreen> {
         Container(
           width: MediaQuery.of(context).size.width,
           height: 50,
-          color: Colors.purple,
           child: RaisedButton(
-            color: Color.fromARGB(0, 0, 0, 100),
+            color: Colors.purple,
             child: new Text(
               "구매하기",
               style: new TextStyle(
@@ -59,6 +64,30 @@ class ItemListScreenState extends State<ItemListScreen> {
                   fontWeight: FontWeight.bold,
                   fontSize: 20),
             ),
+            onPressed: () {
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  // return object of type AlertDialog
+                  return AlertDialog(
+                    title: Text(
+                      "구매 완료",
+                      textAlign: TextAlign.start,
+                    ),
+                    content: Text("해당 상품을 구매하였습니다."),
+                    actions: <Widget>[
+                      // usually buttons at the bottom of the dialog
+                      new FlatButton(
+                        child: new Text("확인"),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                    ],
+                  );
+                },
+              );
+            },
           ),
         ),
       ],
@@ -107,7 +136,7 @@ class ItemListScreenState extends State<ItemListScreen> {
             SizedBox(
               height: 30.0,
             ),
-            builduseinfo(),
+            firstWidget ? builduseinfo() : buildubuyinfo(),
             SizedBox(
               height: 100.0,
             ),
@@ -123,8 +152,9 @@ class ItemListScreenState extends State<ItemListScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Padding(padding: EdgeInsets.only(left: 10),
-                child:Column(
+            Padding(
+                padding: EdgeInsets.only(left: 10),
+                child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text(
@@ -144,39 +174,52 @@ class ItemListScreenState extends State<ItemListScreen> {
                             fontSize: 16)),
                     Text("· 1577-0000 (운영시간 : 평일 09:00 ~ 21:00)"),
                   ],
-                )
-
-            ),
-
+                )),
           ],
         ));
   }
+
   buildubuyinfo() {
     return Container(
         width: MediaQuery.of(context).size.width,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
-            Text(
-              "\n구매 후 상품권 받기\n",
-              textAlign: TextAlign.start,
-              style: new TextStyle(
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 15),
-            ),
-            Text(
-                "·전국 00에서 상품교환이 가능합니다.\n\n·자체 행사상품에는 제외됩니다.\n\n·1+1 / 2+1 등 행사 상품 +1은 적용되지 않습니다.\n\n·각종 할인 적용 및 포인트 적립은 ㅇㅇ의 정책에 따릅니다."),
-            Text("\n\n상품권 점포에서 교환하기\n",
-                style: new TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 15)),
-            Text("·1577-0000 (운영시간 : 평일 09:00 ~ 21:00)"),
+            Padding(
+              padding: EdgeInsets.only(left: 10),
+              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      "\n구매 후 상품권 받기\n",
+                      textAlign: TextAlign.start,
+                      style: new TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 15),
+                    ),
+                    Text("·구매하기 완료시 상품권이 즉시 발송됩니다.\n\n"
+                        "·본인이 구매하신 경우에는 MY쿠폰함에서 쿠폰을 확인 하실 수 있습니다.\n\n"
+                        "·5분이내 상품권을 수령하지 못하신 경우, 1577-8007으로 문의주시면 재발송 받으실 수 있습니다."),
+                    Text("\n\n상품권 점포에서 교환하기\n",
+                        style: new TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 15)),
+                    Text("·00점포에서 교환 대상상품과 함꼐 상품권 바코드를 점원에게 보여주세요.\n\n"
+                        "00점포에서 교환방법을 잘 모르거나 에러가 발생할 경우, 근무자분께 아래 내용을 보여주세요."),
+                    Text("\n\n교환장소\n",
+                        style: new TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 15)),
+                    Text("·전국 00점포에서 교환 가능"),
+                    Text("(일부 특수점 및 휴게소에서는 사용이 불가할 수 있습니다.)",style: new TextStyle(fontSize: 11),)
+                  ]),
+            )
           ],
         ));
   }
-
 
   buildItemtab() {
     return Container(
@@ -184,10 +227,9 @@ class ItemListScreenState extends State<ItemListScreen> {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
           Container(
-
             width: MediaQuery.of(context).size.width / 2,
             height: 45,
-            padding: EdgeInsets.only(left: 5,right: 5),
+            padding: EdgeInsets.only(left: 5, right: 5),
             child: RaisedButton(
               elevation: 5,
               color: Colors.white,
@@ -200,13 +242,18 @@ class ItemListScreenState extends State<ItemListScreen> {
                     fontSize: 14.0,
                     fontWeight: FontWeight.bold),
               ),
-              onPressed: () {},
+              onPressed: () {
+                setState(() {
+                  firstWidget=true;
+                });
+
+              },
             ),
           ),
           Container(
             width: MediaQuery.of(context).size.width / 2,
             height: 45,
-            padding: EdgeInsets.only(left: 5,right: 5),
+            padding: EdgeInsets.only(left: 5, right: 5),
             color: Colors.white,
             child: RaisedButton(
               elevation: 5,
@@ -219,7 +266,13 @@ class ItemListScreenState extends State<ItemListScreen> {
                   color: Colors.black,
                   fontWeight: FontWeight.bold,
                 ),
-              ), onPressed: () {},
+              ),
+              onPressed: () {
+                setState(() {
+                  firstWidget=false;
+                });
+
+              },
             ),
           ),
         ],
