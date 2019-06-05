@@ -37,7 +37,7 @@ class SignIn extends StatelessWidget{
               }
               else if(Tpass == "" || idpass == "" || id == "" || Tid == ""){
                 is_SignIn = false;
-                return _buildAlert("빈칸을 모두 채워 주세요.");
+                return _buildAlert("빈칸을 채워 주세요.");
               }
               else{
                 is_SignIn = false;
