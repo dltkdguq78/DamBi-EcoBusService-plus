@@ -3,10 +3,15 @@ import 'package:dambi/view/screen/member/login/logininfo.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:dambi/properties/InformationProperties.dart';
+
+Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+
 class Login extends StatelessWidget {
   String id;
   String ps;
-  bool is_Login;
+  bool succ_Login;
 
   Login({
     Key key,
@@ -14,19 +19,26 @@ class Login extends StatelessWidget {
     this.ps
   }) : super(key: key);
 
+  bool getter(){
+    return succ_Login;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(child: FutureBuilder<LogInInfo>(
-      future: getDust(id, ps), //sets the getQuote method as the expected Future
+      future: getInfo(id, ps), //sets the getQuote method as the expected Future
       builder: (context, snapshot) {
         if (snapshot.hasData) { //checks if the response returns valid data
-          return Center(
-            child: Column(
-              children: <Widget>[
-
-              ],
-            ),
-          );
+          if(snapshot.data.result == "success"){
+            succ_Login = true;
+            InformationProperties.ACT = snapshot.data.accesstoken;
+            setCustomStatus(snapshot.data.accesstoken);
+            return _buildAlert(snapshot.data.accesstoken);
+          }
+          else{
+            succ_Login = false;
+            return _buildAlert(snapshot.data.info);
+          }
         } else if (snapshot.hasError) { //checks if the response throws an error
           return Text("${snapshot.error}");
         }
@@ -35,13 +47,28 @@ class Login extends StatelessWidget {
     );
   }
 
-  Future<LogInInfo> getDust(String id, String ps) async {
+  setCustomStatus(String accessToken) async {
+    SharedPreferences prefs = await _prefs;
+    bool result = await prefs.setString('accessToken', accessToken);
+    if(result){
+      print("s");
+    }
+    else{
+      print("f");
+    }
+  }
 
+  _buildAlert(String str) {
+    return Text(
+        "Access Token : $str"
+    );
+  }
+
+  Future<LogInInfo> getInfo(String id, String ps) async {
     String uri = 'http://kumoh42teamcontest.p-e.kr/login';
-
     final response =
     await http.post(uri,
-        body:{"id": "$id", "ps": "$ps"},
+        body:{"id": "$id", "idpass": "$ps"},
         headers: {'Accept': 'application/json'}
     );
 
@@ -54,4 +81,5 @@ class Login extends StatelessWidget {
       throw Exception('Failed to load post');
     }
   }
+
 }

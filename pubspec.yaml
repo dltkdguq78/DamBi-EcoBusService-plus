@@ -28,6 +28,8 @@ dependencies:
   percent_indicator: ^1.0.16
   auto_size_text: ^1.1.2
   cached_network_image: ^0.8.0
+  shared_preferences: ^0.4.3
+  key_value_store_flutter: ^1.0.0
 
 dev_dependencies:
   flutter_test:

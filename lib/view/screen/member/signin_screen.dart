@@ -238,18 +238,19 @@ class SigninScreenState extends State<SigninScreen> {
   }
   onCompleteButtonAction(){
 
+
     print("아이디 : ${id_controller.text}");
-    print("비밀번호 : ${id_controller.text}");
-    print("비밀번호 확인 : ${id_controller.text}");
-    print("이름 : ${id_controller.text}");
-    print("교통카드 종류 : ${cardCompany}");
-    print("교통카드 아이디 : ${id_controller.text}");
-    print("교통카드 비밀번호 : ${id_controller.text}");
+    print("비밀번호 : ${pw_controller.text}");
+    print("비밀번호 확인 : ${checkpw_controller.text}");
+    print("이름 : ${name_controller.text}");
+    print("교통카드 종류 : ${ctype_controller}");
+    print("교통카드 아이디 : ${cid_controller.text}");
+    print("교통카드 비밀번호 : ${cpw_controller.text}");
     print("동의함 : ${agree}");
     SignIn si = new SignIn(id: id_controller.text,
-        idpass: id_controller.text,
-        Tid: id_controller.text,
-        Tpass: id_controller.text);
+        idpass: pw_controller.text,
+        Tid: cid_controller.text,
+        Tpass: cpw_controller.text);
     if(agree) {
       showDialog(
         context: context,
@@ -302,6 +303,7 @@ class SigninScreenState extends State<SigninScreen> {
     }
   }
   onCancleButtonAction(){
+
     Route route = MaterialPageRoute(
         builder: (context) => LoginScreen());
     Navigator.pushReplacement(context, route);
