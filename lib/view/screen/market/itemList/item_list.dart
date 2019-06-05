@@ -53,7 +53,7 @@ class ItemListScreenState extends State<ItemListScreen> {
           child: RaisedButton(
             color: Color.fromARGB(0, 0, 0, 100),
             child: new Text(
-              "구매하기",
+              "구매하",
               style: new TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
