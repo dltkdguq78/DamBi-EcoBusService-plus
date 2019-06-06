@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:dambi/view/root_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:dambi/properties/InformationProperties.dart';
 
+
+Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
 
 class SplashScreen extends StatefulWidget {
 
@@ -16,6 +20,7 @@ class SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
+    loadCustomStatus();
     loadData();
   }
 
@@ -24,9 +29,22 @@ class SplashScreenState extends State<SplashScreen> {
   }
 
   onDoneLoading() async {
+
     Route route = MaterialPageRoute(builder: (context) => RootScreen());
     Navigator.pushReplacement(context, route);
   }
+
+  loadCustomStatus() async {
+    SharedPreferences prefs = await _prefs;
+
+    String accessToken = await prefs.getString('accessToken');
+
+    if(accessToken != null && accessToken.length > 1){
+      InformationProperties.ACT = accessToken;
+    }
+  }
+
+
 
 
   @override

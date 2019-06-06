@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:dambi/view/screen/member/signin_screen.dart';
+import 'package:dambi/view/screen/member/login/login.dart';
 
 class LoginScreen extends StatefulWidget {
 
   String user_id;
-  LoginScreen({
-    this.user_id = "default",
-  });
 
   @override
   State<StatefulWidget> createState() => LoginScreenState();
@@ -119,6 +117,35 @@ class LoginScreenState extends State<LoginScreen> {
   onLoginButtonAction() {
     print('로그인 버튼 터치');
     print('${id_controller.text} / ${pw_controller.text}');
+    if(id_controller.text != "" && pw_controller.text != "") {
+      Login li = new Login(id: id_controller.text, ps: pw_controller.text);
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          // return object of type AlertDialog
+          return AlertDialog(
+            title: Text("알림"),
+            content: li,
+            actions: <Widget>[
+              // usually buttons at the bottom of the dialog
+              new FlatButton(
+                child: new Text("확인"),
+                onPressed: () {
+                  if(li.getter()) {
+                    Navigator.of(context).pop();
+                    Navigator.of(context).pop();
+                    Navigator.of(context).pop();
+                  }
+                  else{
+                    Navigator.of(context).pop();
+                  }
+                },
+              ),
+            ],
+          );
+        },
+      );
+    }
   }
   onFindInfoButtonAction(){
     print("아직 안만들었어");

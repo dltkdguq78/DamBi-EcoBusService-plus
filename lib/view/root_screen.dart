@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
-
-
 import 'screen/home_screen.dart';
 import 'screen/member/login_screen.dart';
 import 'screen/market/point_market_screen.dart';
+import 'package:dambi/properties/InformationProperties.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
 
 class RootScreen extends StatefulWidget{
 
@@ -61,19 +63,8 @@ class RootScreenState extends State<RootScreen>{
         ),
       child: Column(
         children: <Widget>[
-          Container(
-            width: double.infinity,
-            child: DrawerHeader(
-              child: Text('사용자 정보'),
-              decoration: BoxDecoration(
-                color: Color(0xfff8cbad),
-              ),
-            ),
-          ),
-          ListTile(
-            onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => LoginScreen(user_id: "",))),
-            title: Text("로그인"),
-          ),
+          _buildLoginHeader(),
+          _buildListTile(),
           ListTile(
             onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => PointMarketScreen())),
             title: Text("포인트 마켓"),
@@ -84,7 +75,22 @@ class RootScreenState extends State<RootScreen>{
     );
   }
 
+  removeCustomStatus() async {
+    SharedPreferences prefs = await _prefs;
+
+    bool result = await prefs.remove('accessToken');
+
+    if(result){
+      InformationProperties.ACT = null;
+      print("s");
+    }
+    else{
+      print("f");
+    }
+  }
+
   _buildChoseRegion(){
+
     double screen_width = MediaQuery.of(context).size.width;
     return Container(
       padding: EdgeInsets.only(right: screen_width/6),
@@ -108,6 +114,62 @@ class RootScreenState extends State<RootScreen>{
         ),
       ),
     );
+  }
+  _buildListTile(){
+    if(InformationProperties.ACT==null || InformationProperties.ACT.isEmpty) {
+      return ListTile(
+        onTap: () =>
+            Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => LoginScreen())),
+        title: Text("로그인"),
+      );
+    }
+    else{
+      return ListTile(
+        onTap: () =>Logout(),
+        title: Text("로그아웃"),
+      );
+    }
+  }
+
+  Logout(){
+    removeCustomStatus();
+    InformationProperties.ACT = null;
+    Navigator.of(context).push(
+        MaterialPageRoute(builder: (context) => LoginScreen()));
+  }
+
+  _buildLoginHeader(){
+    if(InformationProperties.ACT == null) {
+      return Container(
+        width: double.infinity,
+        child: DrawerHeader(
+          child: Text('사용자 정보'),
+          decoration: BoxDecoration(
+            color: Color(0xfff8cbad),
+          ),
+        ),
+      );
+    }
+    else{
+      return Container(
+        width: double.infinity,
+        child: DrawerHeader(
+            decoration: BoxDecoration(
+              color: Color(0xfff8cbad),
+
+            ),
+            child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: <Widget>[
+                  Text('사용자 정보'),
+                  SizedBox(height: 10,),
+                  Text(InformationProperties.ACT),
+                ]
+            )
+        ),
+      );
+    }
   }
 }
 
