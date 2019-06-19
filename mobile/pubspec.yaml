@@ -31,6 +31,8 @@ dependencies:
   cached_network_image: ^0.8.0
   shared_preferences: ^0.4.3
   key_value_store_flutter: ^1.0.0
+  flutter_section_table_view: ^1.0.5
+  connectivity: ^0.4.3+2
 
 dev_dependencies:
   flutter_test:

@@ -48,12 +48,11 @@ class WeatherScreenState extends State<Weather> {
         headers: {'Accept': 'application/json'}
     );
 
-    print(response.body);
 
     if (response.statusCode == 200) {
       return WeatherInfo.fromJson(json.decode(response.body));
     } else {
-      throw Exception('Failed to load post');
+      throw Text('서버에 연결할 수 없습니다.');
     }
   }
 
@@ -85,15 +84,17 @@ class WeatherScreenState extends State<Weather> {
   }
 
   _buildWetherIcon(String temp){
-    switch(temp){
-      case '구름조금':
-        return Icon(Icons.cloud, size: 46.0, color: Colors.blueGrey);
-      case '맑음':
-        return Icon(Icons.wb_sunny, size: 46.0, color: Colors.deepOrangeAccent);
-      case '비':
-        return Icon(Icons.beach_access, size: 46.0, color: Colors.blue);
-      case '눈':
-        return Icon(Icons.grain, size: 46.0, color: Colors.indigoAccent);
+    if(temp == '구름조금' || temp == '구름많음' || temp == '흐림') {
+      return Icon(Icons.cloud, size: 46.0, color: Colors.blueGrey);
+    }
+    else if(temp == '박무' || temp == '연무' || temp == '맑음') {
+      return Icon(Icons.wb_sunny, size: 46.0, color: Colors.deepOrangeAccent);
+    }
+    else if(temp == '비'||temp == '뇌우끝,비' ||temp == '약한비계속' ) {
+      return Icon(Icons.beach_access, size: 46.0, color: Colors.lightBlue);
+    }
+    else if(temp == '눈') {
+      return Icon(Icons.wb_sunny, size: 46.0, color: Colors.deepOrangeAccent);
     }
   }
 }

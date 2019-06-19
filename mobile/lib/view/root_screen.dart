@@ -4,6 +4,9 @@ import 'screen/member/login_screen.dart';
 import 'screen/market/point_market_screen.dart';
 import 'package:dambi/properties/InformationProperties.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:flutter/services.dart';
+import 'package:dambi/properties/location.dart';
 
 Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
 
@@ -17,8 +20,16 @@ class RootScreen extends StatefulWidget{
 class RootScreenState extends State<RootScreen>{
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
-  List<String> regions = <String>['서울', '경기','인천', '강원', '충남', '대전', '충북', '부산', '울산', '대구', '경북', '경남', '전남', '광주', '전북', '제주', '세종'];
-  String selRegion = '서울';
+
+  Position _currentPosition;
+  List<Placemark> plackmark;
+  String area;
+  String city;
+  @override
+  void initState() {
+    _initCurrentLocation();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,8 +46,9 @@ class RootScreenState extends State<RootScreen>{
           ),
         ),
         actions: <Widget>[
-          _buildChoseRegion(),
-          SizedBox(width: MediaQuery.of(context).size.width * 0.08,)
+
+          _buildCurrentPositionWidget(),
+          SizedBox(width: MediaQuery.of(context).size.width * 0.19,)
           ,
           Padding(
             padding: EdgeInsets.only(right: 20.0),
@@ -49,7 +61,7 @@ class RootScreenState extends State<RootScreen>{
           )
         ],
       ),
-      body: HomeScreen(region: selRegion,),
+      body: HomeScreen(city: city, area: area,),
       backgroundColor: Color(0xfff8cbad),
       drawer: _buildDrawer(),
     );
@@ -82,6 +94,7 @@ class RootScreenState extends State<RootScreen>{
 
     if(result){
       InformationProperties.ACT = null;
+      InformationProperties.thisid = null;
       print("s");
     }
     else{
@@ -89,32 +102,6 @@ class RootScreenState extends State<RootScreen>{
     }
   }
 
-  _buildChoseRegion(){
-
-    double screen_width = MediaQuery.of(context).size.width;
-    return Container(
-      padding: EdgeInsets.only(right: screen_width/6),
-      child:DropdownButtonHideUnderline(
-        child: DropdownButton(
-          iconSize: 30,
-          value: selRegion,
-          isDense: true,
-          onChanged: (String newValue) {
-            setState(() {
-              selRegion = newValue;
-              print(regions);
-            });
-          },
-          items: regions.map((String value){
-            return new DropdownMenuItem(
-              child: new Text(value, style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
-              value: value,
-            );
-          }).toList(),
-        ),
-      ),
-    );
-  }
   _buildListTile(){
     if(InformationProperties.ACT==null || InformationProperties.ACT.isEmpty) {
       return ListTile(
@@ -164,12 +151,78 @@ class RootScreenState extends State<RootScreen>{
                 children: <Widget>[
                   Text('사용자 정보'),
                   SizedBox(height: 10,),
-                  Text(InformationProperties.ACT),
+                  Text(InformationProperties.thisid),
                 ]
             )
         ),
       );
     }
+  }
+
+  _buildCurrentPositionWidget(){
+    if (area == null && city == null){
+      area = '네트워크 오류';
+      city = '';
+    }
+    else if(city == null){
+      city = area;
+    }
+    return FutureBuilder<GeolocationStatus>(
+      future: Geolocator().checkGeolocationPermissionStatus(),
+      builder: (context, snapshot){
+        if (!snapshot.hasData) {
+          return const Center(child: CircularProgressIndicator());
+        }
+
+        if (snapshot.data == GeolocationStatus.denied) {
+          return Text("Access to location denied");
+        }
+
+        return InkWell(
+          onTap: () => initState(),
+          child: Center(
+            child: Text("${area} ${city}", textScaleFactor: 2,),
+          )
+        );
+      },
+    );
+
+  }
+
+  Future<void> _initCurrentLocation() async {
+    Position position;
+    // Platform messages may fail, so we use a try/catch PlatformException.
+    try {
+      final Geolocator geolocator = Geolocator()
+        ..forceAndroidLocationManager = true;
+      position = await geolocator.getCurrentPosition(
+          desiredAccuracy: LocationAccuracy.best);
+    } on PlatformException {
+      position = null;
+    }
+
+    // If the widget was removed from the tree while the asynchronous platform
+    // message was in flight, we want to discard the reply rather than calling
+    // setState to update our non-existent appearance.
+    if (!mounted) {
+      return;
+    }
+
+    setState(() {
+      _currentPosition = position;
+      _loadPlacemark(position);
+    });
+  }
+
+  _loadPlacemark(Position position) async {
+    plackmark = await Geolocator().placemarkFromCoordinates(position.latitude, position.longitude);
+    plackmark.forEach((place){
+      ChangeLocation cl = new ChangeLocation();
+      setState(() {
+        area = cl.regionname(place.administrativeArea);
+        city = cl.regionname(place.locality);
+      });
+    });
   }
 }
 

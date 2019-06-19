@@ -3,32 +3,27 @@ import 'package:dambi/view/screen/restapi/dust/dust.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:geolocator/geolocator.dart';
-import 'package:flutter/services.dart';
+import 'package:dambi/view/screen/restapi/weather/anothercity.dart';
+import 'package:dambi/view/screen/restapi/transtimes/transtimes.dart';
+import 'package:dambi/properties/InformationProperties.dart';
+import 'package:dambi/view/screen/restapi/transtimes/detailtimes.dart';
+
 
 class HomeScreen extends StatefulWidget {
-  String region;
+  String city;
+  String area;
 
   @override
   State<StatefulWidget> createState() => HomeScreenState();
 
-  HomeScreen({this.region});
+  HomeScreen({this.city, this.area});
 }
 
 class HomeScreenState extends State<HomeScreen> {
 
-  Position _currentPosition;
-  List<Placemark> plackmark;
-
-  String country;
-  String city;
   int rideTimesInThisWeek = 7;
   int totalPoint = 1050;
-  @override
-  void initState() {
-    _initCurrentLocation();
-    super.initState();
-  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -41,6 +36,8 @@ class HomeScreenState extends State<HomeScreen> {
         children: <Widget>[
           _buildTodaysWeatherWidget(),
           _buildTodaysWeather(),
+          _buildAnotherCity(),
+          SizedBox(height: 10,),
         ],
       ),
     );
@@ -62,7 +59,6 @@ class HomeScreenState extends State<HomeScreen> {
         elevation: 0.0,
         child: Column(
           children: <Widget>[
-             _buildCurrentPositionWidget(),
             Padding(
               padding: EdgeInsets.only(
                   left: screen_width / 10, right: screen_width / 10),
@@ -114,16 +110,16 @@ class HomeScreenState extends State<HomeScreen> {
                           width: 10.0,
                         ),
                         AutoSizeText(
-                          "일주일 동안 탄 횟수",
+                          "대중교통 이용 횟수",
                           style: TextStyle(fontSize: 20.0),
+                          textScaleFactor: 1.08,
                         ),
                         SizedBox(
                           width: 10.0,
                         ),
-                        AutoSizeText(
-                          "${rideTimesInThisWeek}회",
-                          style: TextStyle(color: Colors.amber,fontSize: 20),
-                        ),
+                        TransTimes(token: InformationProperties.ACT),
+                        SizedBox(width: screen_width/35),
+                        _buildDetailButton(),
                       ],
                     ),
                     SizedBox(
@@ -142,6 +138,7 @@ class HomeScreenState extends State<HomeScreen> {
                         Text(
                           "총 마일리지",
                           style: TextStyle(fontSize: 20.0),
+                          textScaleFactor: 1.08,
                         ),
                         SizedBox(
                           width: 10.0,
@@ -149,6 +146,7 @@ class HomeScreenState extends State<HomeScreen> {
                         Text(
                           "${totalPoint}P",
                           style: TextStyle(color: Colors.amber, fontSize: 20.0),
+                          textScaleFactor: 1.08,
                         ),
                       ],
                     )
@@ -164,9 +162,16 @@ class HomeScreenState extends State<HomeScreen> {
 
   _buildTodaysWeather() {
     DateTime now = DateTime.now();
-    String time_now = "${now.year}-0${now.month}-0${now.day} ${now.hour - 1}";
+    String time_now;
+    if(now.day < 10) {
+      time_now = "${now.year}-0${now.month}-0${now.day} ${now.hour-1}";
+    }
+    else{
+      time_now = "${now.year}-0${now.month}-${now.day} ${now.hour-1}";
+    }
     String today_date = "${now.month}월 ${now.day}일";
     double screen_width = MediaQuery.of(context).size.width;
+
 
     return Container(
       margin: EdgeInsets.only(
@@ -194,6 +199,7 @@ class HomeScreenState extends State<HomeScreen> {
                     today_date + " 기상 정보",
                     style:
                         TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
+                    textScaleFactor: 1,
                   ),
                 ],
               ),
@@ -207,10 +213,10 @@ class HomeScreenState extends State<HomeScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Weather(
-                    region: widget.region,
+                    region: widget.city,
                   ),
                   Dust(
-                    region: widget.region,
+                    region: widget.area,
                     timedetail: time_now,
                   ),
                 ],
@@ -227,57 +233,62 @@ class HomeScreenState extends State<HomeScreen> {
         ),
       ),
     );
-  }_buildCurrentPositionWidget(){
+  }
 
-    return FutureBuilder<GeolocationStatus>(
-      future: Geolocator().checkGeolocationPermissionStatus(),
-      builder: (context, snapshot){
-        if (!snapshot.hasData) {
-          return const Center(child: CircularProgressIndicator());
-        }
+  _buildAnotherCity(){
+    double screen_width = MediaQuery.of(context).size.width;
 
-        if (snapshot.data == GeolocationStatus.denied) {
-          return Text("Access to location denied");
-        }
-
-        return Center(
-          child: Text("${country} / ${city}"),
-        );
-      },
+    return InkWell(
+      onTap: () => onAnotherCityInfoAction(),
+      child : Container(
+        margin: EdgeInsets.only(
+            left: screen_width / 50,
+            right: screen_width / 50,
+            top: screen_width / 50,
+            bottom: screen_width / 100),
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(50.0), color: Color(0xfffff2cc)),
+        padding: EdgeInsets.all(10.0),
+        child: Card(
+          color: Color(0xfffff2cc),
+          elevation: 0.0,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Padding(
+                padding: EdgeInsets.only(left: screen_width / 10, right: screen_width / 10),
+                child: Row(
+                  children: <Widget>[
+                    Icon(Icons.add, size: 20, color: Colors.black,),
+                    SizedBox(width: 10,),
+                    Text("다른 지역 날씨 상세 정보", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),textScaleFactor: 1,),
+                  ],
+                ),
+              )
+            ],
+          ),
+        ),
+      ),
     );
-
+  }
+  onAnotherCityInfoAction() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => AnotherCity()),
+    );
   }
 
-  Future<void> _initCurrentLocation() async {
-    Position position;
-    // Platform messages may fail, so we use a try/catch PlatformException.
-    try {
-      final Geolocator geolocator = Geolocator()
-        ..forceAndroidLocationManager = true;
-      position = await geolocator.getCurrentPosition(
-          desiredAccuracy: LocationAccuracy.best);
-    } on PlatformException {
-      position = null;
-    }
-
-    // If the widget was removed from the tree while the asynchronous platform
-    // message was in flight, we want to discard the reply rather than calling
-    // setState to update our non-existent appearance.
-    if (!mounted) {
-      return;
-    }
-
-    setState(() {
-      _currentPosition = position;
-      _loadPlacemark(position);
-    });
-  }
-
-  _loadPlacemark(Position position) async {
-    plackmark = await Geolocator().placemarkFromCoordinates(position.latitude, position.longitude);
-    plackmark.forEach((place){
-      country = place.country;
-      city = place.locality;
-    });
+  _buildDetailButton(){
+    return InkWell(
+      onTap:() =>  Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => DetailTimes()),
+      ),
+      child: Container(
+        decoration: BoxDecoration(color: Color(0xfffff2cc), border: Border.all(color: Colors.black, width: 2), ),
+        child: Icon(Icons.add, size: 20),
+      )
+    );
   }
 }
