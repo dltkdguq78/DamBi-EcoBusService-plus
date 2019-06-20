@@ -74,11 +74,16 @@ class SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     if(isConnected) {
       return Container(
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height,
         decoration: BoxDecoration(
           image: DecorationImage(
-              image: AssetImage('assets/splashlogo.png'),
-              fit: BoxFit.cover
+              image: AssetImage('assets/splashlogo.png',),
+              fit: BoxFit.fitWidth,
+
+
           ),
+          color: Color.fromARGB(255, 196, 224, 226),
         ),
         child: Center(
           child: CircularProgressIndicator(

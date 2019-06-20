@@ -67,8 +67,11 @@ class HomeScreenState extends State<HomeScreen> {
                 children: <Widget>[
                   Text(
                     "마일리지 현황",
-                    style:
-                        TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                      fontFamily: 'BDfont',
+                      fontStyle: FontStyle.normal,
+                      fontSize: 24
+                    ),
                   ),
                 ],
               ),
@@ -88,7 +91,9 @@ class HomeScreenState extends State<HomeScreen> {
                   header: new Text(
                     "오늘 적립 가능 마일리지",
                     style: new TextStyle(
-                        fontWeight: FontWeight.bold, fontSize: 17.0),
+                        fontFamily: 'BDfont',
+                        fontStyle: FontStyle.normal,
+                         fontSize: 17.0),
                   ),
                   circularStrokeCap: CircularStrokeCap.round,
                   progressColor: Colors.purple,
@@ -111,7 +116,10 @@ class HomeScreenState extends State<HomeScreen> {
                         ),
                         AutoSizeText(
                           "대중교통 이용 횟수",
-                          style: TextStyle(fontSize: 20.0),
+                          style: TextStyle(
+                              fontFamily: 'BDfont',
+                              fontStyle: FontStyle.normal,
+                              fontSize: 20.0),
                           textScaleFactor: 1.08,
                         ),
                         SizedBox(
@@ -137,7 +145,9 @@ class HomeScreenState extends State<HomeScreen> {
                         ),
                         Text(
                           "총 마일리지",
-                          style: TextStyle(fontSize: 20.0),
+                          style: TextStyle(  fontFamily: 'BDfont',
+                              fontStyle: FontStyle.normal,
+                              fontSize: 20.0),
                           textScaleFactor: 1.08,
                         ),
                         SizedBox(
@@ -198,7 +208,9 @@ class HomeScreenState extends State<HomeScreen> {
                   Text(
                     today_date + " 기상 정보",
                     style:
-                        TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
+                        TextStyle(  fontFamily: 'BDfont',
+                            fontStyle: FontStyle.normal,
+                            fontSize: 24.0, ),
                     textScaleFactor: 1,
                   ),
                 ],
@@ -262,7 +274,10 @@ class HomeScreenState extends State<HomeScreen> {
                   children: <Widget>[
                     Icon(Icons.add, size: 20, color: Colors.black,),
                     SizedBox(width: 10,),
-                    Text("다른 지역 날씨 상세 정보", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),textScaleFactor: 1,),
+                    Text("다른 지역 날씨 상세 정보", style: TextStyle(
+                        fontFamily: 'BDfont',
+                        fontStyle: FontStyle.normal,
+                        fontSize: 20, ),textScaleFactor: 1,),
                   ],
                 ),
               )

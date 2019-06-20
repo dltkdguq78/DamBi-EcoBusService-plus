@@ -181,7 +181,11 @@ class RootScreenState extends State<RootScreen>{
         return InkWell(
           onTap: () => initState(),
           child: Center(
-            child: Text("${area} ${city}", textScaleFactor: 2,),
+            child: Text("${area} ${city}", textScaleFactor: 2,
+                style: TextStyle(
+              fontFamily: 'BDfont',
+              fontStyle: FontStyle.normal,
+            )),
           )
         );
       },
