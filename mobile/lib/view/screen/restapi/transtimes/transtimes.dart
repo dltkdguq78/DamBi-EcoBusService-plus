@@ -35,9 +35,13 @@ class TransTimes extends StatelessWidget{
                   ],
                 ),
               );
-            } else
-            if (snapshot.hasError) { //checks if the response throws an error
-              return Text("${snapshot.error}");
+            }
+            else if (snapshot.hasError) { //checks if the response throws an error
+              return Text(
+                "0회",
+                style: TextStyle(color: Colors.amber,fontSize: 20),
+                textScaleFactor: 1.08,
+              );
             }
             return CircularProgressIndicator();
           },
@@ -60,7 +64,7 @@ class TransTimes extends StatelessWidget{
       return TransTimesInfo.fromJson(json.decode(response.body));
     }
     else {
-      throw Text('서버에 연결할 수 없습니다.');
+      throw new Exception();
     }
   }
 }

@@ -93,16 +93,27 @@ class SplashScreenState extends State<SplashScreen> {
       );
     }
     else{
-      return AlertDialog(
-        title: Text("알림"),
-        content: Text('네트워크에 연결해주세요.'),
-        actions: <Widget>[
-          // usually buttons at the bottom of the dialog
+      return Container(
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height,
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/splashlogo.png',),
+            fit: BoxFit.fitWidth,
+          ),
+          color: Color.fromARGB(255, 196, 224, 226),
+        ),
+        child : AlertDialog(
+          title: Text("알림"),
+          content: Text('네트워크에 연결해주세요.'),
+          actions: <Widget>[
+            // usually buttons at the bottom of the dialog
           new FlatButton(
             child: new Text("확인"),
             onPressed: () => exit(0),
           ),
-        ],
+          ],
+        ),
       );
     }
   }

@@ -32,6 +32,7 @@ class Login extends StatelessWidget {
           if(snapshot.data.result == "success"){
             succ_Login = true;
             InformationProperties.ACT = snapshot.data.accesstoken;
+            InformationProperties.thisid = id;
             setCustomStatus(snapshot.data.accesstoken, id);
             return _buildAlert('로그인에 성공하였습니다.');
           }
@@ -61,7 +62,7 @@ class Login extends StatelessWidget {
 
   _buildAlert(String str) {
     return Text(
-        "Access Token : $str"
+        "$str"
     );
   }
 
@@ -79,7 +80,7 @@ class Login extends StatelessWidget {
 
       return LogInInfo.fromJson(json.decode(response.body));
     } else {
-      throw Text('서버에 연결할 수 없습니다.');
+      throw new Exception();
     }
   }
 

@@ -54,7 +54,7 @@ class DustScreenState extends State<Dust> {
 
       return DustInfo.fromJson(json.decode(response.body));
     } else {
-      throw Text('서버에 연결할 수 없습니다.');
+      throw new Exception();
     }
   }
 

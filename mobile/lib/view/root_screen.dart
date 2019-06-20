@@ -122,6 +122,7 @@ class RootScreenState extends State<RootScreen>{
   Logout(){
     removeCustomStatus();
     InformationProperties.ACT = null;
+    InformationProperties.thisid = null;
     Navigator.of(context).push(
         MaterialPageRoute(builder: (context) => LoginScreen()));
   }
@@ -177,7 +178,6 @@ class RootScreenState extends State<RootScreen>{
         if (snapshot.data == GeolocationStatus.denied) {
           return Text("Access to location denied");
         }
-
         return InkWell(
           onTap: () => initState(),
           child: Center(
