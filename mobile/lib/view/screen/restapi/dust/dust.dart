@@ -49,13 +49,12 @@ class DustScreenState extends State<Dust> {
         headers: {'Accept': 'application/json'}
     );
 
-    print(response.body);
 
     if (response.statusCode == 200) {
 
       return DustInfo.fromJson(json.decode(response.body));
     } else {
-      throw Exception('Failed to load post');
+      throw new Exception();
     }
   }
 

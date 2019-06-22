@@ -32,12 +32,13 @@ class Login extends StatelessWidget {
           if(snapshot.data.result == "success"){
             succ_Login = true;
             InformationProperties.ACT = snapshot.data.accesstoken;
-            setCustomStatus(snapshot.data.accesstoken);
-            return _buildAlert(snapshot.data.accesstoken);
+            InformationProperties.thisid = id;
+            setCustomStatus(snapshot.data.accesstoken, id);
+            return _buildAlert('로그인에 성공하였습니다.');
           }
           else{
             succ_Login = false;
-            return _buildAlert(snapshot.data.info);
+            return _buildAlert('아이디/패스워드를 확인 해주세요');
           }
         } else if (snapshot.hasError) { //checks if the response throws an error
           return Text("${snapshot.error}");
@@ -47,10 +48,11 @@ class Login extends StatelessWidget {
     );
   }
 
-  setCustomStatus(String accessToken) async {
+  setCustomStatus(String accessToken, String id) async {
     SharedPreferences prefs = await _prefs;
-    bool result = await prefs.setString('accessToken', accessToken);
-    if(result){
+    bool resultToken = await prefs.setString('accessToken', accessToken);
+    bool resultid = await prefs.setString('id', id);
+    if(resultid && resultToken){
       print("s");
     }
     else{
@@ -60,7 +62,7 @@ class Login extends StatelessWidget {
 
   _buildAlert(String str) {
     return Text(
-        "Access Token : $str"
+        "$str"
     );
   }
 
@@ -78,7 +80,7 @@ class Login extends StatelessWidget {
 
       return LogInInfo.fromJson(json.decode(response.body));
     } else {
-      throw Exception('Failed to load post');
+      throw new Exception();
     }
   }
 

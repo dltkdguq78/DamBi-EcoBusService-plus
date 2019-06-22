@@ -17,6 +17,7 @@ environment:
   sdk: ">=2.1.0 <3.0.0"
 
 dependencies:
+  geolocator: '^5.0.0'
   http: ^0.12.0
   flutter:
     sdk: flutter
@@ -30,6 +31,8 @@ dependencies:
   cached_network_image: ^0.8.0
   shared_preferences: ^0.4.3
   key_value_store_flutter: ^1.0.0
+  flutter_section_table_view: ^1.0.5
+  connectivity: ^0.4.3+2
 
 dev_dependencies:
   flutter_test:
@@ -46,6 +49,11 @@ flutter:
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
+  fonts:
+    - family: BDfont
+      fonts:
+        - asset: assets/font/BDfont.ttf
+
   uses-material-design: true
   assets:
     - assets/splashlogo.png
