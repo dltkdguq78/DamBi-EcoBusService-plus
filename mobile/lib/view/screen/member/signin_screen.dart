@@ -60,11 +60,11 @@ class SigninScreenState extends State<SigninScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          backgroundColor: Color(0xfff4b183),
+          backgroundColor: Color(0xFF689F38),
           title: Text("회원 가입"),
           centerTitle: true
       ),
-      backgroundColor: Color(0xfffff2cc),
+      backgroundColor: Color(0xffdcedc8),
       body: _buildBody(),
     );
   }
@@ -92,7 +92,7 @@ class SigninScreenState extends State<SigninScreen> {
                 InkWell(
                   child: Container(
                     child: RaisedButton(
-                      color: Color(0xfff4b183),
+                      color: Color(0xffaed581),
                       shape: new RoundedRectangleBorder(
                           borderRadius: new BorderRadius.circular(20.0)),
                       child: new Text("회원가입",
@@ -105,7 +105,7 @@ class SigninScreenState extends State<SigninScreen> {
                   ),
                 ),
                 RaisedButton(
-                  color: Color(0xfff4b183),
+                  color: Color(0xffaed581),
                   shape: new RoundedRectangleBorder(
                       borderRadius: new BorderRadius.circular(20.0)),
                   child: new Text("취소",
@@ -141,7 +141,7 @@ class SigninScreenState extends State<SigninScreen> {
                     decoration: InputDecoration(
                         enabledBorder: UnderlineInputBorder(
                           borderSide: BorderSide(
-                              color: Color(0xfff4b183),
+                              color: Color(0xffaed581),
                               width: 1.5,
                           ),
                         ),
@@ -169,7 +169,7 @@ class SigninScreenState extends State<SigninScreen> {
                 SizedBox(height: 25.0,),
                 Container(
                   padding: EdgeInsets.all(1.5),
-                  decoration: BoxDecoration(color: Color(0xfffff2cc), border: Border.all(color: Color(0xfff4b183), width: 1.5),),
+                  decoration: BoxDecoration(color: Color(0xffdcedc8), border: Border.all(color: Color(0xffaed581), width: 1.5),),
                   child:DropdownButtonHideUnderline(
                     child: DropdownButton(
                       iconSize: 30,
@@ -198,19 +198,19 @@ class SigninScreenState extends State<SigninScreen> {
   }
   _buildTextFormField(){
     return Container(
-      decoration: BoxDecoration(borderRadius: BorderRadius.circular(10.0), color: Color(0xfffff2cc), border: Border.all(color: Color(0xfff4b183), width: 3), ),
+      decoration: BoxDecoration(borderRadius: BorderRadius.circular(10.0), color: Color(0xffdcedc8), border: Border.all(color: Color(0xffaed581), width: 3), ),
       padding: EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.08, right: MediaQuery.of(context).size.width * 0.08, top: 20.0, bottom: 5.0),
       margin: EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.125, right: MediaQuery.of(context).size.width * 0.125, top: 10.0, bottom: 5.0),
       child:Column(
         children: <Widget>[
           Container(
-            decoration: BoxDecoration(borderRadius: BorderRadius.circular(5.0), color: Color(0xfff4b183), ),
+            decoration: BoxDecoration(borderRadius: BorderRadius.circular(5.0), color: Color(0xffaed581), ),
             padding: EdgeInsets.all(7),
             child: AutoSizeText("거래내역 조회 본인 동의", style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold), maxLines: 1,),
           ),
           SizedBox(height: 10.0,),
           Container(
-            decoration: BoxDecoration(color: Color(0xfffff2cc)),
+            decoration: BoxDecoration(color: Color(0xffdcedc8)),
             padding: EdgeInsets.all(5),
             child: AutoSizeText("본인은 조회 하고자하는 해당 카드가 본인의 소유임을 확인하여, 조회된 거래내역 및 기록이 제 3자에게 유츌됨으로 인하여 발생하게 되는 모든 문제에 대하여는 그 책임이 본인에게 있음을 확인합니다.",
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12), maxLines: null),

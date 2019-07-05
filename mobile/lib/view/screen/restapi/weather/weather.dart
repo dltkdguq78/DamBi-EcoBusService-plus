@@ -61,7 +61,7 @@ class WeatherScreenState extends State<Weather> {
     return Padding(
       padding: EdgeInsets.only(left: screen_width/30.0),
       child: Container(
-        decoration: BoxDecoration(borderRadius: BorderRadius.circular(10.0), color: Color(0xfffff2cc), border: Border.all(color: Color(0xfff4b183), width: 3), ),
+        decoration: BoxDecoration(borderRadius: BorderRadius.circular(10.0), color: Color(0xffdcedc8), border: Border.all(color: Color(0xffaed581), width: 3), ),
         padding: EdgeInsets.only(top: screen_width/25.0, left: screen_width/15.0, right: screen_width/15.0, bottom: screen_width/25.0),
       child: Column(
           children: <Widget>[
