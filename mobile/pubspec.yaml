@@ -64,6 +64,8 @@ flutter:
     - assets/soso.png
     - assets/very_bad.png
     - assets/bad.png
+    - assets/ItemMenu/cu.png
+    - assets/ItemMenu/starbucks.jpg
     - assets/ItemMenu/candy.png
     - assets/ItemMenu/chips.png
     - assets/ItemMenu/chocolate.png
