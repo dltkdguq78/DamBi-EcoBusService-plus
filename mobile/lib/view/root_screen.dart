@@ -33,10 +33,12 @@ class RootScreenState extends State<RootScreen>{
 
   @override
   Widget build(BuildContext context) {
+
+    double screen_width = MediaQuery.of(context).size.width;
     return Scaffold(
       key: scaffoldKey,
       appBar: AppBar(
-        backgroundColor: Color(0xFF689F38),
+        backgroundColor: Color.fromARGB(255, 100, 170, 240),
         centerTitle: true,
         leading: Padding(
           padding: EdgeInsets.only(left: 10.0),
@@ -51,18 +53,13 @@ class RootScreenState extends State<RootScreen>{
           SizedBox(width: MediaQuery.of(context).size.width * 0.19,)
           ,
           Padding(
-            padding: EdgeInsets.only(right: 20.0),
-            child: InkWell(
-              onTap: (){
-                print("SEARCH ACTION");
-              },
-              child: Icon(Icons.search, size: 32.0,),
-            ),
+            padding: EdgeInsets.only(right: screen_width/6),
+
           )
         ],
       ),
       body: HomeScreen(city: city, area: area,),
-      backgroundColor: Color(0xffaed581),
+      backgroundColor: Color.fromARGB(255, 140, 200, 250),
       drawer: _buildDrawer(),
     );
   }
@@ -71,7 +68,7 @@ class RootScreenState extends State<RootScreen>{
     return Drawer(
       child:Container(
         decoration: BoxDecoration(
-          color: Color(0xffdcedc8),
+          color:  Color.fromARGB(255, 100, 170, 220),
         ),
       child: Column(
         children: <Widget>[
@@ -134,7 +131,7 @@ class RootScreenState extends State<RootScreen>{
         child: DrawerHeader(
           child: Text('사용자 정보'),
           decoration: BoxDecoration(
-            color: Color(0xffaed581),
+            color:   Color.fromARGB(255, 100, 170, 220)
           ),
         ),
       );
@@ -144,7 +141,7 @@ class RootScreenState extends State<RootScreen>{
         width: double.infinity,
         child: DrawerHeader(
             decoration: BoxDecoration(
-              color: Color(0xffaed581),
+              color:    Color.fromARGB(255, 100, 170, 220),
 
             ),
             child: Column(
@@ -184,6 +181,7 @@ class RootScreenState extends State<RootScreen>{
             child: Text("${area} ${city}", textScaleFactor: 2,
                 style: TextStyle(
               fontFamily: 'BDfont',
+              color: Colors.white,
               fontStyle: FontStyle.normal,
             )),
           )

@@ -3,21 +3,21 @@ import 'package:dambi/view/screen/restapi/dust/dustinfo.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-class Dust extends StatefulWidget{
+class othercitydust extends StatefulWidget{
   final Future<DustInfo> dustInfo;
   String timedetail;
   String region;
   @override
   State<StatefulWidget> createState() => DustScreenState();
 
-  Dust({
+  othercitydust({
     Key key,
     this.region,
     this.timedetail,
     this.dustInfo
   }) : super(key: key);
 }
-class DustScreenState extends State<Dust> {
+class DustScreenState extends State<othercitydust> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -61,7 +61,7 @@ class DustScreenState extends State<Dust> {
   _buildDustIfoItem(String pm2, String pm10){
     String standard = "";
     if(int.tryParse(pm2) <= 15){
-       standard = "좋음";
+      standard = "좋음";
     }
     else if(int.tryParse(pm2) > 15 &&  int.tryParse(pm2) <= 50){
       standard = "보통";
@@ -73,40 +73,30 @@ class DustScreenState extends State<Dust> {
       standard = "매우나쁨";
     }
     double screen_width = MediaQuery.of(context).size.width;
-    return Padding(
-      padding: EdgeInsets.only(right: screen_width/30.0),
-      child: Container(
-        decoration: BoxDecoration(borderRadius: BorderRadius.circular(10.0), color: Color.fromARGB(255, 200, 230, 250), border: Border.all(color:  Color.fromARGB(255, 100, 170, 240), width: 3), ),
-        padding: EdgeInsets.only(top: screen_width/25.0, left: screen_width/15.0, right: screen_width/15.0, bottom: screen_width/25.0),
+    return Container(
+      width: 50,
+      height: 60,
+      decoration: BoxDecoration(borderRadius: BorderRadius.circular(5.0), color: Color.fromARGB(230, 200, 230, 250), border: Border.all(color:  Color.fromARGB(255, 100, 170, 240), width: 3), ),
+
       child: Column(
         children: <Widget>[
-          //SizedBox(height: 5.0,),
-          Text("DUST",style: TextStyle(
-              fontFamily: 'BDfont',
-              fontStyle: FontStyle.normal,
-              fontSize: screen_width/25.0),),
-          Padding(
-            padding:EdgeInsets.all(10),
-            child:_buildDustIcon(standard),
-          ),
+
+
+          _buildDustIcon(standard),
+
           Column(
-              children: <Widget>[
-                Text("${standard}", style: TextStyle(
-                    fontFamily: 'BDfont',
-                    fontStyle: FontStyle.normal,
-                    fontSize: screen_width/25.0),),
-                Text("$pm2 PM(2.5)", style: TextStyle(
-                    fontFamily: 'BDfont',
-                    fontStyle: FontStyle.normal,
-                    fontSize: screen_width/25.0),),
-                Text("$pm10 PM(10)", style: TextStyle(
-                    fontFamily: 'BDfont',
-                    fontStyle: FontStyle.normal,
-                    fontSize: screen_width/25.0),)
-              ]
-          )
+            children: <Widget>[
+              Text("$standard", style: TextStyle(
+                  fontFamily: 'BDfont',
+                  fontStyle: FontStyle.normal,
+                  fontSize: screen_width/35.0),),
+              Text("$pm10 ㎍", style:  TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: screen_width/35.0),),
+
+            ],
+          ),
         ],
-      ),
       ),
     );
   }
@@ -114,13 +104,29 @@ class DustScreenState extends State<Dust> {
   _buildDustIcon(String temp){
     switch(temp){
       case '매우나쁨':
-        return Tab(icon: Image.asset('assets/very_bad.png'));
+        return Image.asset(
+          'assets/dusticon/b.png',
+          width: 120,
+          height: 120,
+        );
       case '나쁨':
-        return Tab(icon: Image.asset('assets/bad.png'));
+        return Image.asset(
+          'assets/dusticon/s.png',
+          width: 30,
+          height: 30,
+        );
       case '보통':
-        return Tab(icon: Image.asset('assets/soso.png'));
+        return Image.asset(
+          'assets/dusticon/m.png',
+          width: 30,
+          height: 30,
+        );
       case '좋음':
-        return Tab(icon: Image.asset('assets/good.png'));
+        return Image.asset(
+          'assets/dusticon/g.png',
+          width: 30,
+          height: 30,
+        );
     }
   }
 }

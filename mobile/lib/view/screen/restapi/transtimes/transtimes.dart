@@ -29,7 +29,11 @@ class TransTimes extends StatelessWidget{
                   children: <Widget>[
                     Text(
                       "${snapshot.data.len}회",
-                      style: TextStyle(color: Color(0xffab47bc),fontSize: 20),
+                      style: TextStyle(
+                          fontFamily: 'BDfont',
+                          fontStyle: FontStyle.normal,
+                          color: Color(0xffab47bc),
+                          fontSize: 20),
                       textScaleFactor: 1.08,
                     ),
                   ],
@@ -39,7 +43,10 @@ class TransTimes extends StatelessWidget{
             else if (snapshot.hasError) { //checks if the response throws an error
               return Text(
                 "0회",
-                style: TextStyle(color: Color(0xffab47bc ),fontSize: 20),
+                style: TextStyle(fontFamily: 'BDfont',
+                    fontStyle: FontStyle.normal,
+                    color: Color(0xffab47bc)
+                    ,fontSize: 20),
                 textScaleFactor: 1.08,
               );
             }
