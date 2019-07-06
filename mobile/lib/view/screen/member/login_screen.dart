@@ -28,7 +28,7 @@ class LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color(0xfffff2cc),
+        backgroundColor: Color(0xffdcedc8),
         elevation: 0.0,
         leading: InkWell(
           onTap: () => Navigator.of(context).pop(),
@@ -36,7 +36,7 @@ class LoginScreenState extends State<LoginScreen> {
         ),
       ),
       body: _buildBody(),
-      backgroundColor: Color(0xfffff2cc),
+      backgroundColor: Color(0xffdcedc8),
     );
   }
 
@@ -72,7 +72,7 @@ class LoginScreenState extends State<LoginScreen> {
               InkWell(
                 child: Container(
                   child: RaisedButton(
-                    color: Color(0xfff8cbad),
+                    color: Color(0xffaed581),
                     shape: new RoundedRectangleBorder(
                         borderRadius: new BorderRadius.circular(20.0)),
                     child: new Text("로그인",
@@ -85,7 +85,7 @@ class LoginScreenState extends State<LoginScreen> {
                 ),
               ),
               RaisedButton(
-                color: Color(0xfff8cbad),
+                color: Color(0xffaed581),
                 shape: new RoundedRectangleBorder(
                     borderRadius: new BorderRadius.circular(20.0)),
                 child: new Text("회원가입",

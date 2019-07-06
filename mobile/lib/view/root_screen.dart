@@ -36,7 +36,7 @@ class RootScreenState extends State<RootScreen>{
     return Scaffold(
       key: scaffoldKey,
       appBar: AppBar(
-        backgroundColor: Color(0xfff4b183),
+        backgroundColor: Color(0xFF689F38),
         centerTitle: true,
         leading: Padding(
           padding: EdgeInsets.only(left: 10.0),
@@ -62,7 +62,7 @@ class RootScreenState extends State<RootScreen>{
         ],
       ),
       body: HomeScreen(city: city, area: area,),
-      backgroundColor: Color(0xfff8cbad),
+      backgroundColor: Color(0xffaed581),
       drawer: _buildDrawer(),
     );
   }
@@ -71,7 +71,7 @@ class RootScreenState extends State<RootScreen>{
     return Drawer(
       child:Container(
         decoration: BoxDecoration(
-          color: Color(0xfffff2cc),
+          color: Color(0xffdcedc8),
         ),
       child: Column(
         children: <Widget>[
@@ -134,7 +134,7 @@ class RootScreenState extends State<RootScreen>{
         child: DrawerHeader(
           child: Text('사용자 정보'),
           decoration: BoxDecoration(
-            color: Color(0xfff8cbad),
+            color: Color(0xffaed581),
           ),
         ),
       );
@@ -144,7 +144,7 @@ class RootScreenState extends State<RootScreen>{
         width: double.infinity,
         child: DrawerHeader(
             decoration: BoxDecoration(
-              color: Color(0xfff8cbad),
+              color: Color(0xffaed581),
 
             ),
             child: Column(

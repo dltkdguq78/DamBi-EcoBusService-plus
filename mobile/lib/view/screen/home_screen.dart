@@ -52,10 +52,10 @@ class HomeScreenState extends State<HomeScreen> {
           top: screen_width / 50,
           bottom: screen_width / 100),
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(50.0), color: Color(0xfffff2cc)),
+          borderRadius: BorderRadius.circular(50.0), color: Color(0xffdcedc8)),
       padding: EdgeInsets.all(10.0),
       child: Card(
-        color: Color(0xfffff2cc),
+        color: Color(0xffdcedc8),
         elevation: 0.0,
         child: Column(
           children: <Widget>[
@@ -155,7 +155,7 @@ class HomeScreenState extends State<HomeScreen> {
                         ),
                         Text(
                           "${totalPoint}P",
-                          style: TextStyle(color: Colors.amber, fontSize: 20.0),
+                          style: TextStyle(color: Color(0xffab47bc), fontSize: 20.0),
                           textScaleFactor: 1.08,
                         ),
                       ],
@@ -190,10 +190,10 @@ class HomeScreenState extends State<HomeScreen> {
           top: screen_width / 50,
           bottom: screen_width / 100),
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(50.0), color: Color(0xfffff2cc)),
+          borderRadius: BorderRadius.circular(50.0), color: Color(0xffdcedc8)),
       padding: EdgeInsets.all(10.0),
       child: Card(
-        color: Color(0xfffff2cc),
+        color: Color(0xffdcedc8),
         elevation: 0.0,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -259,10 +259,10 @@ class HomeScreenState extends State<HomeScreen> {
             top: screen_width / 50,
             bottom: screen_width / 100),
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(50.0), color: Color(0xfffff2cc)),
+            borderRadius: BorderRadius.circular(50.0), color: Color(0xffdcedc8)),
         padding: EdgeInsets.all(10.0),
         child: Card(
-          color: Color(0xfffff2cc),
+          color: Color(0xffdcedc8),
           elevation: 0.0,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -301,7 +301,7 @@ class HomeScreenState extends State<HomeScreen> {
         MaterialPageRoute(builder: (context) => DetailTimes()),
       ),
       child: Container(
-        decoration: BoxDecoration(color: Color(0xfffff2cc), border: Border.all(color: Colors.black, width: 2), ),
+        decoration: BoxDecoration(color: Color(0xffdcedc8), border: Border.all(color: Colors.black, width: 2), ),
         child: Icon(Icons.add, size: 20),
       )
     );
