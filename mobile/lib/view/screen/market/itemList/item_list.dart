@@ -41,7 +41,6 @@ class ItemListScreenState extends State<ItemListScreen> {
       body:buildItemBody(),
 
 
-      //extendBody: firstWidget ? builduseinfo():buildubuyinfo(),
       backgroundColor: Colors.white,
     );
   }

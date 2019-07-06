@@ -34,6 +34,7 @@ class HomeScreenState extends State<HomeScreen> {
     return SingleChildScrollView(
       child: Column(
         children: <Widget>[
+          SizedBox(height: 5,),
           _buildTodaysWeatherWidget(),
           _buildTodaysWeather(),
           _buildAnotherCity(),
@@ -52,10 +53,10 @@ class HomeScreenState extends State<HomeScreen> {
           top: screen_width / 50,
           bottom: screen_width / 100),
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(50.0), color: Color(0xffdcedc8)),
+          borderRadius: BorderRadius.circular(50.0), color:Color.fromARGB(255, 200, 230, 250)),
       padding: EdgeInsets.all(10.0),
       child: Card(
-        color: Color(0xffdcedc8),
+        color: Color.fromARGB(255, 200, 230, 250),
         elevation: 0.0,
         child: Column(
           children: <Widget>[
@@ -125,6 +126,7 @@ class HomeScreenState extends State<HomeScreen> {
                         SizedBox(
                           width: 10.0,
                         ),
+
                         TransTimes(token: InformationProperties.ACT),
                         SizedBox(width: screen_width/35),
                         _buildDetailButton(),
@@ -154,8 +156,9 @@ class HomeScreenState extends State<HomeScreen> {
                           width: 10.0,
                         ),
                         Text(
-                          "${totalPoint}P",
-                          style: TextStyle(color: Color(0xffab47bc), fontSize: 20.0),
+                          " ${totalPoint} P",
+                          style: TextStyle(fontFamily: 'BDfont',
+                              fontStyle: FontStyle.normal,color: Color(0xffab47bc), fontSize: 20.0),
                           textScaleFactor: 1.08,
                         ),
                       ],
@@ -190,10 +193,10 @@ class HomeScreenState extends State<HomeScreen> {
           top: screen_width / 50,
           bottom: screen_width / 100),
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(50.0), color: Color(0xffdcedc8)),
+          borderRadius: BorderRadius.circular(50.0), color: Color.fromARGB(255, 200, 230, 250)),
       padding: EdgeInsets.all(10.0),
       child: Card(
-        color: Color(0xffdcedc8),
+        color: Color.fromARGB(255, 200, 230, 250),
         elevation: 0.0,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -234,11 +237,19 @@ class HomeScreenState extends State<HomeScreen> {
                 ],
               ),
             ),
+        SizedBox(
+          height: 5.0,
+        ),
             Padding(
-              padding: EdgeInsets.only(left: screen_width / 2.5),
-              child: Text(
+              padding: EdgeInsets.only(left: screen_width / 2.0),
+
+              child:
+              Text(
                 "업데이트 시간: ${now.hour}시",
-                style: TextStyle(fontSize: 12),
+                style: TextStyle(
+                    fontFamily: 'BDfont',
+                    fontStyle: FontStyle.normal,
+                    fontSize: 12),
               ),
             )
           ],
@@ -259,10 +270,10 @@ class HomeScreenState extends State<HomeScreen> {
             top: screen_width / 50,
             bottom: screen_width / 100),
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(50.0), color: Color(0xffdcedc8)),
+            borderRadius: BorderRadius.circular(50.0), color: Color.fromARGB(255, 200, 230, 250)),
         padding: EdgeInsets.all(10.0),
         child: Card(
-          color: Color(0xffdcedc8),
+          color: Color.fromARGB(255, 200, 230, 250),
           elevation: 0.0,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -301,7 +312,7 @@ class HomeScreenState extends State<HomeScreen> {
         MaterialPageRoute(builder: (context) => DetailTimes()),
       ),
       child: Container(
-        decoration: BoxDecoration(color: Color(0xffdcedc8), border: Border.all(color: Colors.black, width: 2), ),
+        decoration: BoxDecoration(color: Color.fromARGB(255, 200, 230, 250), border: Border.all(color: Colors.black, width: 2), ),
         child: Icon(Icons.add, size: 20),
       )
     );

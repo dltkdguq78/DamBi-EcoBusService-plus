@@ -28,7 +28,7 @@ class LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color(0xffdcedc8),
+        backgroundColor:  Color.fromARGB(255, 200, 230, 250),
         elevation: 0.0,
         leading: InkWell(
           onTap: () => Navigator.of(context).pop(),
@@ -36,7 +36,7 @@ class LoginScreenState extends State<LoginScreen> {
         ),
       ),
       body: _buildBody(),
-      backgroundColor: Color(0xffdcedc8),
+      backgroundColor:  Color.fromARGB(255, 200, 230, 250),
     );
   }
 
@@ -49,14 +49,18 @@ class LoginScreenState extends State<LoginScreen> {
             //mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              SizedBox(height: MediaQuery.of(context).size.height/15,),
+              SizedBox(height: MediaQuery.of(context).size.height/10,),
               Image.asset(
                 'assets/loginlogo.png',
                 width: 120,
                 height: 120,
               ),
               SizedBox(height: 10.0,),
-              Text("담  비", style: TextStyle(fontSize: 40.0),),
+              Text("담    비", style:  TextStyle(
+                  fontFamily: 'BDfont',
+                  fontStyle: FontStyle.normal,
+                  fontSize: 40
+              ),),
               SizedBox(height: 20.0,),
               Padding(
                 padding: EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.2, right: MediaQuery.of(context).size.width * 0.2),
@@ -72,27 +76,29 @@ class LoginScreenState extends State<LoginScreen> {
               InkWell(
                 child: Container(
                   child: RaisedButton(
-                    color: Color(0xffaed581),
+                    color: Color.fromARGB(255, 100, 170, 230),
                     shape: new RoundedRectangleBorder(
                         borderRadius: new BorderRadius.circular(20.0)),
                     child: new Text("로그인",
-                        style: new TextStyle(
-                            color: Colors.black,
-                            fontSize: 14.0,
-                            fontWeight: FontWeight.bold)),
+                        style: new  TextStyle(
+                            fontFamily: 'BDfont',
+                            fontStyle: FontStyle.normal,
+                            fontSize: 15
+                        )),
                     onPressed: () => onLoginButtonAction(),
                 ),
                 ),
               ),
               RaisedButton(
-                color: Color(0xffaed581),
+                color: Color.fromARGB(255, 100, 170, 230),
                 shape: new RoundedRectangleBorder(
                     borderRadius: new BorderRadius.circular(20.0)),
                 child: new Text("회원가입",
                     style: new TextStyle(
-                        color: Colors.black,
-                        fontSize: 14.0,
-                        fontWeight: FontWeight.bold)),
+                        fontFamily: 'BDfont',
+                        fontStyle: FontStyle.normal,
+                        fontSize: 15
+                    )),
                 onPressed: () => onSignInButtonAction(),
               ),
               SizedBox(height: 20.0,),
@@ -102,9 +108,10 @@ class LoginScreenState extends State<LoginScreen> {
               child: Text(
                 "아이디/비밀번호 찾기",
                 style: TextStyle(
-                    decoration: TextDecoration.underline,
-                    color: Colors.black,
-                    fontSize: 12.0),
+                    fontFamily: 'BDfont',
+                    fontStyle: FontStyle.normal,
+                    fontSize: 12
+                ),
               ),
             ),
           ),

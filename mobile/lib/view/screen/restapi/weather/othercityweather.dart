@@ -3,20 +3,20 @@ import 'package:dambi/view/screen/restapi/weather/weatherinfo.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-class Weather extends StatefulWidget{
+class othercityweather extends StatefulWidget{
   final Future<WeatherInfo> waetherinfo;
   int time;
   String region;
   @override
   State<StatefulWidget> createState() => WeatherScreenState();
 
-  Weather({
+  othercityweather({
     Key key,
     this.region,
     this.waetherinfo
   }) : super(key: key);
 }
-class WeatherScreenState extends State<Weather> {
+class WeatherScreenState extends State<othercityweather> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -27,7 +27,7 @@ class WeatherScreenState extends State<Weather> {
               return Center(
                 child: Column(
                   children: <Widget>[
-                    _buildTodaysWeatherItem(snapshot.data.tem, snapshot.data.wind, snapshot.data.weather),
+                    _buildTodaysWeatherItem(snapshot.data.tem, snapshot.data.wind, snapshot.data.weather,widget.region),
                   ],
                 ),
               );
@@ -56,56 +56,48 @@ class WeatherScreenState extends State<Weather> {
     }
   }
 
-  _buildTodaysWeatherItem(String temp, String wind, String weather){
+  _buildTodaysWeatherItem(String temp, String wind, String weather,String region){
     double screen_width = MediaQuery.of(context).size.width;
-    return Padding(
-      padding: EdgeInsets.only(left: screen_width/30.0),
-      child: Container(
-        decoration: BoxDecoration(borderRadius: BorderRadius.circular(10.0), color: Color.fromARGB(255, 200, 230, 250), border: Border.all(color:  Color.fromARGB(255, 100, 170, 240), width: 3), ),
-        padding: EdgeInsets.only(top: screen_width/25.0, left: screen_width/15.0, right: screen_width/15.0, bottom: screen_width/25.0),
-      child: Column(
+    return  Container(
+        width: 50,
+        height: 60,
+        decoration: BoxDecoration(borderRadius: BorderRadius.circular(5.0), color: Color.fromARGB(230, 200, 230, 250), border: Border.all(color:  Color.fromARGB(255, 100, 170, 240), width: 3), ),
+
+        child: Column(
           children: <Widget>[
-            Text("WEATHER",style: TextStyle(
-                fontFamily: 'BDfont',
-                fontStyle: FontStyle.normal,
-                fontSize: screen_width/25.0),),
-            Padding(
-              padding:EdgeInsets.all(10),
-              child:_buildWetherIcon(weather),
-            ),
+
+
+            _buildWetherIcon(weather),
+
             Column(
               children: <Widget>[
                 Text("$weather", style: TextStyle(
                     fontFamily: 'BDfont',
                     fontStyle: FontStyle.normal,
-                    fontSize: screen_width/25.0),),
+                    fontSize: screen_width/35.0),),
                 Text("$temp ℃", style:  TextStyle(
                     fontWeight: FontWeight.bold,
-                    fontSize: screen_width/25.0),),
-                Text("$wind m/s", style:  TextStyle(
-                    fontFamily: 'BDfont',
-                    fontStyle: FontStyle.normal,
-                    fontSize: screen_width/25.0),),
+                    fontSize: screen_width/35.0),),
+
               ],
             ),
           ],
-      ),
-    ),
+        ),
     );
   }
 
   _buildWetherIcon(String temp){
     if(temp == '구름조금' || temp == '구름많음' || temp == '흐림') {
-      return Icon(Icons.cloud, size: 46.0, color: Colors.blueGrey);
+      return Icon(Icons.cloud, size: 30.0, color: Colors.blueGrey);
     }
     else if(temp == '박무' || temp == '연무' || temp == '맑음') {
-      return Icon(Icons.wb_sunny, size: 46.0, color: Colors.deepOrangeAccent);
+      return Icon(Icons.wb_sunny, size: 30.0, color: Colors.deepOrangeAccent);
     }
     else if(temp == '비'||temp == '뇌우끝,비' ||temp == '약한비계속' ) {
-      return Icon(Icons.beach_access, size: 46.0, color: Colors.lightBlue);
+      return Icon(Icons.beach_access, size: 30.0, color: Colors.lightBlue);
     }
     else if(temp == '눈') {
-      return Icon(Icons.wb_sunny, size: 46.0, color: Colors.deepOrangeAccent);
+      return Icon(Icons.wb_sunny, size: 30.0, color: Colors.deepOrangeAccent);
     }
   }
 }
